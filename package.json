@@ -1,15 +1,25 @@
 {
-  "name": "hc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "Joshua O. Olaoye",
-  "license": "ISC",
-  "dependencies": {
-    "nodemon": "^3.1.0"
-  }
+	"name": "hc",
+	"version": "1.0.0",
+	"description": "This is the official website for Duni Kollins Bags & Perfumes. Shop and view catalogues.",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js",
+		"dev": "nodemon app.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Joshua O. Olaoye",
+	"license": "ISC",
+	"dependencies": {
+		"dotenv": "^16.4.5",
+		"ejs": "^3.1.10",
+		"express": "^4.19.2",
+		"express-ejs-layouts": "^2.5.1",
+		"http-errors": "^2.0.0",
+		"mongodb": "^6.7.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.3"
+	}
 }
