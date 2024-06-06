@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 938.89 938.89">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-3 {
+        font-family: TimesNewRomanPSMT, 'Times New Roman';
+        font-size: 86.17px;
+        letter-spacing: .2em;
+      }
+
+      .cls-3, .cls-2 {
+        fill: #e02e7f;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" width="938.89" height="938.89"/>
+    <g>
+      <path class="cls-2" d="M383.58,304.98v53.79h26.89v-33.02h74.55l13.28-14.64s-7.15-6.47-39.49-6.13-75.23,0-75.23,0Z"/>
+      <path class="cls-2" d="M383.58,508.55v-53.79h26.89v33.02h74.55l13.28,14.64s-7.15,6.47-39.49,6.13-75.23,0-75.23,0Z"/>
+      <path class="cls-2" d="M510.9,348.55s30.64,65.02,0,116.77l16,18.38s49.02-77.63,0-151.84l-16,16.69Z"/>
+      <rect class="cls-2" x="383.58" y="386" width="25.53" height="41.53"/>
+      <polygon class="cls-2" points="506.47 313.07 420.96 403.54 413.03 403.54 413.03 413.45 423.27 413.45 511.75 505.58 539.16 503.58 442.09 406.84 533.88 313.07 506.47 313.07"/>
+      <rect class="cls-2" x="406.73" y="403.36" width="19.23" height="10.21"/>
+      <text class="cls-3" transform="translate(71.91 607.5)"><tspan x="0" y="0">DUNI KOLLINS</tspan></text>
+    </g>
+  </g>
+</svg>
