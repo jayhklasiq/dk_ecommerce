@@ -37,7 +37,7 @@ This is an E-commerce platform developed using Node.js and Express. It is design
 3. **Install dependencies**
 
    ```sh
-   npm install
+   pnpm install
    ```
 
 4. **Set up environment variables**
