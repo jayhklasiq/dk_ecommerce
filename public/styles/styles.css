@@ -177,6 +177,71 @@ nav ul li a {
 	}
 }
 
+/* Login Page Styles */
+/* This section contains specific styles for the login.html page */
+#login-form-section,
+#register-form-section {
+	max-width: 400px;
+	margin: 20px auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	background-color: #f8f8f8;
+}
+
+#login-form-section h2,
+#register-form-section h2 {
+	text-align: center;
+	color: #333;
+}
+
+#login-form-section form,
+#register-form-section form {
+	display: flex;
+	flex-direction: column;
+}
+
+#login-form-section input,
+#register-form-section input {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.button-link {
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-bottom: 5px;
+	text-decoration: none;
+	text-align: center;
+}
+
+.button-link:hover {
+	background-color: #0056b3;
+}
+
+.button-link p {
+	text-align: center;
+	margin-top: 10px;
+}
+
+#login-form-section p a,
+#register-form-section p a  {
+	color: $007bff;
+	text-decoration: none;
+}
+
+#login-form-section p a:hover,
+#register-form-section p a:hover {
+	text-decoration: underline;
+}
+
 .buy-button {
 	padding: 10px;
 	background-color: grey;
@@ -554,7 +619,9 @@ nav ul li a {
 	text-align: center;
 }
 
-.remove-btn {
+.remove-btn,
+.edit-btn,
+.apply-promo-btn {
 	padding: 5px;
 }
 
@@ -587,12 +654,14 @@ h2 {
 	font-weight: bold;
 }
 
-.form-group input {
+.form-group input,
+.promo-section input {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
+	margin-bottom: 3px;
 }
 
 .form-group input:focus {
@@ -627,6 +696,76 @@ h2 {
 	}
 
 	.submit-btn {
+		padding: 8px;
+	}
+}
+
+/* Add Product Page Styles */
+.admin-add-product {
+	padding: 20px;
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.admin-add-product h2 {
+	text-align: center;
+	margin-bottom: 20px;
+	color: #333;
+}
+
+.product-form {
+	display: flex;
+	flex-direction: column;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.admin-add-product form label {
+	font-weight: bold;
+	color: #333;
+}
+
+.admin-add-product form input,
+.admin-add-product form textarea,
+.admin-add-product form select {
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-bottom: 5%;
+}
+
+.admin-add-product form textarea {
+	resize: vertical;
+	height: 150px;
+}
+
+.admin-add-product form button {
+	padding: 10px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.admin-add-product form button:hover {
+	background-color: #0056b3;
+}
+
+/* Responsive styles for Add Product page */
+@media (max-width: 768px) {
+	.admin-add-product {
+		padding: 10px;
+	}
+
+	.admin-add-product form input,
+	.admin-add-product form textarea,
+	.admin-add-product form select {
+		padding: 8px;
+	}
+
+	.admin-add-product form button {
 		padding: 8px;
 	}
 }

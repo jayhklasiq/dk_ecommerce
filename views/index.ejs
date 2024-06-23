@@ -1,4 +1,24 @@
- <section class="hero">
+<!-- <section class="hero">
+  <% products.forEach(function(product, index) { %>
+  <div class="slider slider<%= index + 1 %> <%= index === 0 ? 'active' : '' %>">
+    <img src="<%= product.imageURL %>" alt="<%= product.productName %>">
+    <div class="text-overlay">
+      <h2><%= product.productName %></h2>
+      <p><%= product.description %></p>
+      <a class="buy-button" href="#">Add to Cart</a>
+    </div>
+  </div>
+  <% }); %>
+
+  <div id="pagination">
+    <% products.forEach(function(product, index) { %>
+    <button class="<%= index === 0 ? 'active' : '' %>"
+      data-slide="<%= index %>"></button>
+    <% }); %>
+  </div>
+</section> -->
+
+<section class="hero">
   <div class="slider slider1 active">
     <img src="images/1.png" alt="Dawn Perfume">
     <div class="text-overlay">
@@ -7,7 +27,7 @@
         sunt minima culpa quaerat ipsa quo alias vero animi similique sed,
         excepturi dolorem debitis eaque ipsam unde amet porro repellendus
         reprehenderit?</p>
-      <a class="buy-button" href="#">Buy Now</a>
+      <a class="buy-button" href="#">Add to Cart</a>
     </div>
   </div>
 
@@ -19,7 +39,7 @@
         sunt minima culpa quaerat ipsa quo alias vero animi similique sed,
         excepturi dolorem debitis eaque ipsam unde amet porro repellendus
         reprehenderit?</p>
-      <a class="buy-button" href="#">Buy Now</a>
+      <a class="buy-button" href="#">Add to Cart</a>
     </div>
   </div>
 
@@ -31,7 +51,7 @@
         sunt minima culpa quaerat ipsa quo alias vero animi similique sed,
         excepturi dolorem debitis eaque ipsam unde amet porro repellendus
         reprehenderit?</p>
-      <a class="buy-button" href="#">Buy Now</a>
+      <a class="buy-button" href="#">Add to Cart</a>
     </div>
   </div>
 
@@ -43,7 +63,7 @@
         sunt minima culpa quaerat ipsa quo alias vero animi similique sed,
         excepturi dolorem debitis eaque ipsam unde amet porro repellendus
         reprehenderit?</p>
-      <a class="buy-button" href="#">Buy Now</a>
+      <a class="buy-button" href="#">Add to Cart</a>
     </div>
   </div>
 
