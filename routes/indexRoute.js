@@ -20,7 +20,6 @@ router.get('/', home.homepage);
 router.get('/shop', home.shoppage);
 router.get('/about-us', home.aboutuspage);
 router.get('/shoppingcart', ensureAuthenticated, userpage.cartview);
-// router.post('/shoppingcart', userpage.ensureAuthenticated, userpage.addToCart);
 router.get('/login', userpage.loginPage);
 router.post('/login', userpage.handleLogin);
 router.get('/register', userpage.registerPage);
@@ -29,7 +28,7 @@ router.post('/addToCart', ensureAuthenticated, userpage.addToCart);
 router.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get('/auth/google/callback',
   passport.authenticate('google', {
-    successRedirect: '/addToCart',
+    successRedirect: '/shoppingcart',
     failureRedirect: '/login'
   }));
 
