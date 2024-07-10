@@ -44,7 +44,7 @@ async function connectDB() {
     validator: {
       $jsonSchema: {
         bsonType: "object",
-        required: ["username", "email"],
+        required: ["username", "email", "password"],
         properties: {
           username: {
             bsonType: "string",
@@ -55,41 +55,6 @@ async function connectDB() {
             description: "must be a string and is required"
           },
           password: {
-            bsonType: ["string", "null"],
-            description: "can be a string or null"
-          },
-          googleId: {
-            bsonType: ["string", "null"],
-            description: "can be a string or null"
-          }
-        }
-      }
-    }
-  };
-
-  const cartItemSchema = {
-    validator: {
-      $jsonSchema: {
-        bsonType: "object",
-        required: ["userId", "productId", "productName", "price", "imageURL"],
-        properties: {
-          userId: {
-            bsonType: "objectId",
-            description: "must be an objectId and is required"
-          },
-          productId: {
-            bsonType: "objectId",
-            description: "must be an objectId and is required"
-          },
-          productName: {
-            bsonType: "string",
-            description: "must be a string and is required"
-          },
-          price: {
-            bsonType: "double",  // Using "double" for decimal values
-            description: "must be a decimal and is required"
-          },
-          imageURL: {
             bsonType: "string",
             description: "must be a string and is required"
           }
@@ -98,23 +63,68 @@ async function connectDB() {
     }
   };
 
+  // Define a schema for the carts collection
+  const cartSchema = {
+    bsonType: "object",
+    required: ["userId", "items"],
+    properties: {
+      userId: {
+        bsonType: "string",
+        description: "must be a string and is required"
+      },
+      items: {
+        bsonType: "array",
+        description: "must be an array and is required",
+        items: {
+          bsonType: "object",
+          required: ["productId", "productName", "price", "category", "imageURL", "description"],
+          properties: {
+            productId: {
+              bsonType: "ObjectId", 
+              description: "must be a string and is required"
+            },
+            productName: {
+              bsonType: "string",
+              description: "must be a string and is required"
+            },
+            price: {
+              bsonType: "double",
+              description: "must be a double and is required"
+            },
+            imageURL: {
+              bsonType: "string",
+              description: "must be a string and is required"
+            },
+            description: {
+              bsonType: "string",
+              description: "must be a string and is required"
+            }
+          }
+        }
+      }
+    }
+  };
 
 
   // Apply the schema to the products collection
   await db.command({
     collMod: "products",
-    validator: productSchema.validator
+    validator: productSchema.validator,
+    validationLevel: "strict"
   });
 
   // Apply the schema to the users collection
   await db.command({
     collMod: "users",
-    validator: userSchema.validator
+    validator: userSchema.validator,
+    validationLevel: "strict"
   });
 
+  // Apply the schema to the carts collection
   await db.command({
     collMod: "carts",
-    validator: cartItemSchema.validator
+    validator: cartSchema.validator,
+    validationLevel: "strict"
   });
 
   return {

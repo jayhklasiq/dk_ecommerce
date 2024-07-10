@@ -1,21 +1,22 @@
 require('dotenv').config();
 
-// Import required modules
 const express = require('express');
 const expressLayouts = require("express-ejs-layouts");
 const path = require('path');
-// const createError = require('http-errors');
 const connectDB = require('./data/connect');
-const homeRoute = require('./routes/indexRoute');
-const adminRoue = require('./routes/adminRoute');
+const userRoutes = require('./routes/userRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const passport = require('passport');
-require('./utilities/auth'); // Load Passport configuration
-
+const MongoStore = require('connect-mongo');
+const cookieParser = require('cookie-parser');
 
 // Initialize the app
 const app = express();
+const client = process.env.MONGODB_URI
+
+// Connect to MongoDB
+connectDB();
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -33,26 +34,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Initialize and configure session middleware
+app.use(cookieParser());
 app.use(session({
   secret: process.env.SESSION,
   resave: false,
   saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: {
-    secure: true,
-    maxAge: 86400000
+    secure: false, // Set to true if you're using HTTPS
+    maxAge: 86400000 // 1 day in milliseconds
   }
 }));
 
-// Initialize Passport and configure it to use sessions
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Define Routes
-app.use('/', homeRoute);
-app.use('/admin', adminRoue);
-
-// Connect to MongoDB
-connectDB();
+app.use('/', userRoutes);
+app.use('/admin', adminRoutes);
 
 // Start the server
 const port = process.env.PORT;
