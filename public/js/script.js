@@ -59,22 +59,3 @@ if (window.location.pathname.endsWith('admin')) {
   }
 }
 
-
-if (window.location.pathname.endsWith('login') || window.location.pathname.endsWith('register')) {
-  function toggleForms() {
-    const registerForm = document.getElementById('register-form-section');
-    const loginForm = document.getElementById('login-form-section');
-    if (registerForm.style.display === 'none') {
-      registerForm.style.display = 'block';
-      loginForm.style.display = 'none';
-    } else {
-      registerForm.style.display = 'none';
-      loginForm.style.display = 'block';
-    }
-  }
-
-  function signInWithGoogle() {
-    // Implement Google sign-in logic here
-    console.log('Google sign-in triggered');
-  }
-}

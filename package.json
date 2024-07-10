@@ -1,33 +1,30 @@
 {
-	"name": "hc",
+	"name": "dunikollins",
 	"version": "1.0.0",
-	"description": "This is the official website for Duni Kollins Bags & Perfumes. Shop and view catalogues.",
-	"main": "app.js",
+	"description": "This is an e-commerce store for DK Bags and Perfumes",
+	"main": "index.js",
 	"scripts": {
 		"start": "node app.js",
-		"dev": "nodemon app.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"dev": "nodemon app.js"
 	},
-	"keywords": [],
+	"keywords": [
+		"\"e-commerce\"",
+		"\"mongodb\"",
+		"\"web",
+		"app\""
+	],
 	"author": "Joshua O. Olaoye",
 	"license": "ISC",
 	"dependencies": {
-		"bcryptjs": "^2.4.3",
 		"body-parser": "^1.20.2",
+		"connect-mongo": "^5.1.0",
+		"cookie-parser": "^1.4.6",
 		"dotenv": "^16.4.5",
 		"ejs": "^3.1.10",
 		"express": "^4.19.2",
 		"express-ejs-layouts": "^2.5.1",
 		"express-session": "^1.18.0",
-		"express-validator": "^7.1.0",
-		"http-errors": "^2.0.0",
-		"install": "^0.13.0",
-		"mongodb": "^6.7.0",
-		"npm": "^10.8.1",
-		"passport": "^0.7.0",
-		"passport-google-oauth2": "^0.2.0"
-	},
-	"devDependencies": {
-		"nodemon": "^3.1.4"
+		"mongodb": "^6.8.0",
+		"npm": "^10.8.1"
 	}
 }
