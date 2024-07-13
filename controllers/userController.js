@@ -89,14 +89,48 @@ async function loginUser(req, res) {
   }
 }
 
-function cartpage(req, res) {
-  console.log(req.session.userId)
-  if (!req.session.userId) {
-    return res.redirect('/login?notice=Please login to view the cart');
+async function cartpage(req, res) {
+  try {
+    if (!req.session.userId) {
+      return res.redirect('/login?notice=Please login to view the cart');
+    }
+
+    const cartItems = await user_functions.loadCartItems(req.session.userId);
+    let totalAmount = 0;
+
+    // Iterate through the cart items and access the items array
+    const formattedCartItems = cartItems.map(cart => {
+      return cart.items.map(item => {
+        totalAmount += item.price;
+        return item;
+      });
+    }).flat();
+
+    const shippingOptions = [
+      { name: 'Standard Shipping', price: 5 },
+      { name: 'Express Shipping', price: 10 }
+    ];
+
+    res.render('userPages/shoppingcart', {
+      title: 'Shopping Cart',
+      cartItems: formattedCartItems,
+      totalAmount,
+      shippingOptions
+    });
+  } catch (error) {
+    console.error('Error loading cart page:', error);
+    res.status(500).send('Error loading the shopping cart page.');
   }
-  res.render('userPages/shoppingcart', {
-    title: 'Shopping Cart'
+}
+
+async function saveMessage(req, res) {
+  const { name, email, message } = req.body
+  await user_functions.saveMessage({
+    username: name,
+    email,
+    message
   });
+  console.log("Your message has been sent. We will reach out to you within the next 42 hours.");
 }
 
 async function addtocart(req, res) {
@@ -118,7 +152,7 @@ async function addtocart(req, res) {
   const cartItem = {
     productId: new ObjectId(productData._id),
     productName: productData.productName,
-    price: productData.price,
+    price: Number(productData.price),
     imageURL: productData.imageURL,
     description: productData.description
   };
@@ -127,15 +161,7 @@ async function addtocart(req, res) {
     req.session.cart.items.push(cartItem);
   } else {
     req.session.cart = {
-      items: [
-        {
-          productId: new ObjectId(productData._id),
-          productName: productData.productName,
-          price: productData.price,
-          imageURL: productData.imageURL,
-          description: productData.description
-        }
-      ]
+      items: [cartItem]
     };
   }
 
@@ -145,17 +171,14 @@ async function addtocart(req, res) {
       return res.status(500).send('Failed to add item to cart.');
     }
     // res.redirect('/shoppingcart');
-    res.json(
-      {
-        userId: req.session.userId,
-        CartProducts: req.session.cart
-      }
-    )
+    console.log(req.session.userId);
+    console.log(req.session.cart);
 
+    res.redirect('/shoppingcart')
   });
 
   await user_functions.addToCart({
-    userId: req.session.userId,
+    userId: new ObjectId(req.session.userId),
     items: [cartItem]
   });
 }
@@ -169,5 +192,6 @@ module.exports = {
   registerPage,
   registerUser,
   addtocart,
-  cartpage
+  cartpage,
+  saveMessage
 };

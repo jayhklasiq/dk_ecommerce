@@ -69,18 +69,18 @@ async function connectDB() {
     required: ["userId", "items"],
     properties: {
       userId: {
-        bsonType: "string",
+        bsonType: "ObjectId",
         description: "must be a string and is required"
       },
       items: {
         bsonType: "array",
         description: "must be an array and is required",
-        items: {
+        cartItem: {
           bsonType: "object",
-          required: ["productId", "productName", "price", "category", "imageURL", "description"],
+          required: ["productId", "productName", "price", "imageURL", "description"],
           properties: {
             productId: {
-              bsonType: "ObjectId", 
+              bsonType: "ObjectId",
               description: "must be a string and is required"
             },
             productName: {
@@ -105,6 +105,29 @@ async function connectDB() {
     }
   };
 
+  // Define a schema for the user_complaints collection
+  const userComplaintsSchema = {
+    validator: {
+      $jsonSchema: {
+        bsonType: "object",
+        required: ["username", "email", "message"],
+        properties: {
+          usernames: {
+            bsonType: "string",
+            description: "must be a string and is required"
+          },
+          email: {
+            bsonType: "string",
+            description: "must be a string and is required"
+          },
+          message: {
+            bsonType: "string",
+            description: "must be a string and is required"
+          }
+        }
+      }
+    }
+  };
 
   // Apply the schema to the products collection
   await db.command({
@@ -127,12 +150,20 @@ async function connectDB() {
     validationLevel: "strict"
   });
 
+  // Apply the schema to the user_complaints collection
+  await db.command({
+    collMod: "user_complaints",
+    validator: userComplaintsSchema.validator,
+    validationLevel: "strict"
+  });
+
   return {
     db,
     products: db.collection('products'),
     users: db.collection('users'),
     orders: db.collection('orders'),
-    carts: db.collection('carts')
+    carts: db.collection('carts'),
+    user_complaints: db.collection('user_complaints')
   };
 }
 

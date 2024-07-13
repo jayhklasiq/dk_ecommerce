@@ -5,5 +5,7 @@ require('dotenv').config();
 
 router.get('/', admin.addProductPage);
 router.post('/', admin.addProductToDB);
+router.get('/delete-product', admin.deleteProductPage);
+router.post('/delete-product', admin.deleteProduct);
 
 module.exports = router

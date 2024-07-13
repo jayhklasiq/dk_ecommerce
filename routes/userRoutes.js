@@ -14,6 +14,7 @@ router.get('/register', userController.registerPage);
 router.post('/register', userController.registerUser)
 router.get('/shoppingcart', userController.cartpage);
 router.post('/addtocart', userController.addtocart);
+router.post('/save-message', userController.saveMessage);
 
 
 module.exports = router;

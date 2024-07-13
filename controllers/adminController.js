@@ -27,9 +27,41 @@ async function addProductToDB(req, res, next) {
     console.error('Error adding product:', error);
     res.status(500).send('Error adding product to the database.');
   };
+} 
+
+
+
+function deleteProductPage(req, res, next) {
+  res.render(
+    'adminPages/delete-product', { title: 'Add Product', notice: '' }
+  )
+}
+
+
+async function deleteProduct(req, res, next) {
+  const { productId, productName } = req.body;
+
+  try {
+    const product = await db_functions.getProductById({ productId });
+    if (!product) {
+      return res.status(404).send('Product not found');
+    }
+
+    const result = await db_functions.deleteProduct(productId);
+    if (result.deletedCount === 1) {
+      res.send('Product deleted successfully');
+    } else {
+      res.status(500).send('Error deleting product');
+    }
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    res.status(500).send('Error deleting product');
+  }
 }
 
 module.exports = {
   addProductPage,
-  addProductToDB
+  addProductToDB,
+  deleteProductPage,
+  deleteProduct
 }
