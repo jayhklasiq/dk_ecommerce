@@ -66,10 +66,58 @@ async function loadCartItems(userId) {
   }
 }
 
+async function removeCartItem(userId, itemId) {
+  try {
+    const { carts } = await connectDB();
+    await carts.updateOne(
+      { userId: new ObjectId(userId) },
+      { $pull: { items: { productId: new ObjectId(itemId) } } }
+    );
+  } catch (error) {
+    console.error('Error removing cart item:', error);
+    throw error;
+  }
+}
+
+async function addOrder({ name, address, phone, cartItems, totalAmount }) {
+  try {
+    const { orders } = await connectDB();
+    const result = await orders.insertOne({ name, address, phone, cartItems, totalAmount });
+    return result.insertedId;
+  } catch (error) {
+    console.error('Error adding order:', error);
+    throw error;
+  }
+}
+
+async function getUserCart({ userId }) {
+  try {
+    const { carts } = await connectDB();
+    return await carts.findOne({ userId: new ObjectId(userId) });
+  } catch (error) {
+    console.error("Error getting cart:", error);
+    throw error;
+  }
+}
+
+async function deleteCartItems({userId}) {
+  try {
+    const { carts } = await connectDB();
+    await carts.deleteMany({ userId: new ObjectId(userId) });
+  } catch (error) {
+    console.error('Error deleting cart items:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   createUser,
   getUserByEmail,
   addToCart,
   saveMessage,
-  loadCartItems
+  loadCartItems,
+  removeCartItem,
+  addOrder,
+  getUserCart,
+  deleteCartItems
 };

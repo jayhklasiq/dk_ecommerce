@@ -27,7 +27,7 @@ async function addProductToDB(req, res, next) {
     console.error('Error adding product:', error);
     res.status(500).send('Error adding product to the database.');
   };
-} 
+}
 
 
 
@@ -59,9 +59,25 @@ async function deleteProduct(req, res, next) {
   }
 }
 
+async function complaintPage(req, res, next) {
+  try {
+    const allComplaints = await db_functions.getAllComplaints();
+    res.render('adminPages/complaints',
+      {
+        title: 'Update Roase=]',
+        notice: '',
+        complaints: allComplaints
+      });
+  } catch (error) {
+    console.error('Error loading complaints page:', error);
+    res.status(500).send('Error loading complaints');
+  }
+}
+
 module.exports = {
   addProductPage,
   addProductToDB,
   deleteProductPage,
-  deleteProduct
+  deleteProduct,
+  complaintPage
 }

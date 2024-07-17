@@ -56,10 +56,22 @@ async function getAllProducts() {
   }
 }
 
+
+async function getAllComplaints() {
+  try {
+    const { user_complaints } = await connectDB();
+    return await user_complaints.find({}).toArray();
+  } catch (error) {
+    console.error('Error getting all complaints:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getProductById,
   updateProduct,
   deleteProduct,
-  getAllProducts
+  getAllProducts,
+  getAllComplaints
 };

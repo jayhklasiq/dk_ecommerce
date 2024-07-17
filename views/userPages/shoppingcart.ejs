@@ -1,4 +1,4 @@
- <h2>Shopping Cart</h2>
+<h2>Shopping Cart</h2>
 <div class="cart-container">
   <% cartItems.forEach(item => { %>
   <div class="cart-item">
@@ -6,12 +6,13 @@
     <div class="item-details">
       <h3><%= item.name %></h3>
       <p>Price: $<%= item.price %></p>
-      <button class="remove-btn"
-        onclick="removeFromCart('<%= item._id %>')">Remove</button>
+      <form action="/removeCartItem" method="POST">
+        <input type="hidden" name="itemId" value="<%= item.productId %>">
+        <button type="submit" class="remove-btn">Remove</button>
+      </form>
     </div>
   </div>
   <% }); %>
-
   <div class="cart-summary">
     <div class="shipping-options">
       <h3>Shipping Options:</h3>
@@ -23,50 +24,40 @@
       </label>
       <% }); %>
     </div>
-
     <div class="promo-section">
       <h3>Apply Promo Code:</h3>
       <input type="text" id="promo-code" placeholder="Enter code">
       <button class="apply-promo-btn">Apply</button>
       <p id="promo-status"></p>
     </div>
-
-    <h3>Total Amount: $<span id="total-amount"><%= totalAmount %></span></h3>
-
+    <h3>Total Amount: $<span id="total-amount"
+        data-amount="<%= totalAmount %>"><%= totalAmount.toFixed(2)
+        %></span></h3>
     <a href="#checkout" class="checkout-btn">Proceed to Checkout</a>
   </div>
 </div>
 
 <div id="checkout">
-  <h2>Payment</h2>
+  <h2>Process Order</h2>
   <div class="checkout-container">
-    <form action="/submit-payment" method="POST">
+    <form action="/processOrder" method="POST">
       <div class="form-group">
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" value="<%= username %>" required>
       </div>
       <div class="form-group">
         <label for="address">Address:</label>
         <input type="text" id="address" name="address" required>
       </div>
       <div class="form-group">
-        <label for="card">Credit Card:</label>
-        <input type="text" id="card" name="card" required>
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" required>
       </div>
+      <input type="hidden" name="totalAmount" value="<%= totalAmount %>">
       <div class="form-group">
-        <label for="expiry">Expiry Date:</label>
-        <input type="text" id="expiry" name="expiry" placeholder="MM/YY"
-          required>
-      </div>
-      <div class="form-group">
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="cvv" required>
-      </div>
-      <div class="form-group">
-        <button type="submit" class="submit-btn">Submit Payment</button>
+        <button type="submit" class="submit-btn">Process My Order</button>
       </div>
     </form>
   </div>
 </div>
-
 <script src="/js/cart.js"></script>

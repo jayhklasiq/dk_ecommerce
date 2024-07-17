@@ -232,7 +232,7 @@ nav ul li a {
 }
 
 #login-form-section p a,
-#register-form-section p a  {
+#register-form-section p a {
 	color: $007bff;
 	text-decoration: none;
 }
@@ -768,4 +768,14 @@ h2 {
 	.admin-add-product form button {
 		padding: 8px;
 	}
+}
+
+/* Admin Message Page Styling */
+.complaints-list {
+	margin: 0 auto;
+	padding: 0 20px 20px 5px;
+	border: 1px solid grey;
+	border-radius: 7px;
+	width: 80%;
+	list-style: none;
 }

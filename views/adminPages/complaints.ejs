@@ -1,0 +1,9 @@
+<h1>User Complaints</h1>
+<ul class="complaints-list">
+  <% complaints.forEach(complaint => { %>
+  <li>
+    <p><strong><%= complaint.username %></strong></p>
+    <span><%= complaint.message %></span>
+  </li>
+  <% }); %>
+</ul>

@@ -77,6 +77,7 @@ async function loginUser(req, res) {
     return res.redirect('/register?notice=User not found, please register');
   } else if (user.password === password) {
     req.session.userId = new ObjectId(user._id);
+    req.session.userName = user.username
     req.session.save((err) => {
       if (err) {
         console.error('Session save error:', err);
@@ -115,7 +116,8 @@ async function cartpage(req, res) {
       title: 'Shopping Cart',
       cartItems: formattedCartItems,
       totalAmount,
-      shippingOptions
+      shippingOptions,
+      username: req.session.userName
     });
   } catch (error) {
     console.error('Error loading cart page:', error);
@@ -183,6 +185,41 @@ async function addtocart(req, res) {
   });
 }
 
+async function removeCartItem(req, res) {
+  try {
+    if (!req.session.userId) {
+      return res.redirect('/login?notice=Please login to view the cart');
+    }
+
+    const itemId = req.body.itemId;
+    await user_functions.removeCartItem(req.session.userId, itemId);
+
+    res.redirect('/shoppingcart');
+  } catch (error) {
+    console.error('Error removing cart item:', error);
+    res.status(500).send('Error removing the item from the cart.');
+  }
+}
+
+async function processOrder(req, res) {
+  const { name, address, phone, totalAmount } = req.body;
+  const userId = req.session.userId
+  const cartItems = await user_functions.getUserCart({ userId });
+  try {
+    await user_functions.addOrder({ name, address, phone, cartItems, totalAmount });
+    res.json({
+      message: 'Your order has been placed. You will get a call from a dispatch soon.',
+      "Your Orders": cartItems.items,
+      Total: totalAmount
+    });
+
+    await user_functions.deleteCartItems({ userId });
+  } catch (error) {
+    console.error('Error processing order:', error);
+    res.status(500).send('Error processing the order.');
+  }
+}
+
 module.exports = {
   homepage,
   shoppage,
@@ -193,5 +230,7 @@ module.exports = {
   registerUser,
   addtocart,
   cartpage,
-  saveMessage
+  saveMessage,
+  removeCartItem,
+  processOrder
 };

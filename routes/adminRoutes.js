@@ -7,5 +7,6 @@ router.get('/', admin.addProductPage);
 router.post('/', admin.addProductToDB);
 router.get('/delete-product', admin.deleteProductPage);
 router.post('/delete-product', admin.deleteProduct);
+router.get('/complaints', admin.complaintPage);
 
 module.exports = router
